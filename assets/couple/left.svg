@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbf8f2"/>
+      <stop offset="1" stop-color="#f1ede3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="25%" r="70%">
+      <stop offset="0" stop-color="#c8a24a" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0b1b4a" stop-opacity="0.06"/>
+    </radialGradient>
+    <pattern id="grain" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="12" r="1.4" fill="#101114" opacity="0.05"/>
+      <circle cx="42" cy="20" r="1.2" fill="#101114" opacity="0.04"/>
+      <circle cx="26" cy="44" r="1.3" fill="#101114" opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="1600" fill="url(#bg)"/>
+  <rect width="1200" height="1600" fill="url(#glow)"/>
+  <rect width="1200" height="1600" fill="url(#grain)" opacity="0.9"/>
+
+  <g fill="none" stroke="#0b1b4a" opacity="0.22">
+    <path d="M-60,1240 C180,1100 420,1340 640,1220 C860,1100 980,980 1280,1080" stroke-width="3"/>
+  </g>
+
+  <g font-family="Cinzel, Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <text x="600" y="790" font-size="44" fill="#0b1b4a" opacity="0.86">Photo gauche</text>
+    <text x="600" y="845" font-size="18" fill="#0b1b4a" opacity="0.60">Remplace par votre photo</text>
+  </g>
+</svg>
+

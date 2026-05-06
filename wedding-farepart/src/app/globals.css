@@ -1,0 +1,194 @@
+/* src/app/globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@200;300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────────────────── */
+:root {
+  /* Couleurs — Palette Bamiléké Chic */
+  --color-gold:          #C9A96E;
+  --color-gold-light:    #E8D5A3;
+  --color-gold-dark:     #9A7A45;
+  --color-ivory:         #FAF6F0;
+  --color-ivory-warm:    #F5EFE4;
+  --color-dark:          #1A1209;
+  --color-dark-soft:     #2D1F0E;
+  --color-earth:         #5C3D1E;
+  --color-kente-red:     #8B1A1A;
+  --color-kente-green:   #1A4A2E;
+  --color-kente-orange:  #C4511F;
+  --color-muted:         #9B8B7A;
+  --color-border:        rgba(201, 169, 110, 0.25);
+
+  /* Typographie */
+  --font-display:        'Cormorant Garamond', Georgia, serif;
+  --font-body:           'Jost', 'Helvetica Neue', sans-serif;
+
+  /* Tailles de police */
+  --text-hero:           clamp(3.5rem, 10vw, 8rem);
+  --text-section-title:  clamp(2rem, 5vw, 4rem);
+  --text-subtitle:       clamp(1rem, 2.5vw, 1.5rem);
+
+  /* Espacement */
+  --space-section-y:     clamp(5rem, 12vh, 10rem);
+  --space-container:     clamp(1.5rem, 5vw, 6rem);
+  --max-width:           1200px;
+
+  /* Animations */
+  --duration-fast:       200ms;
+  --duration-base:       500ms;
+  --duration-slow:       800ms;
+  --duration-slower:     1200ms;
+  --ease-smooth:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring:         cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Décorations */
+  --ornament-opacity:    0.12;
+  --shadow-gold:         0 4px 30px rgba(201, 169, 110, 0.2);
+  --shadow-dark:         0 20px 60px rgba(26, 18, 9, 0.4);
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-ivory);
+  color: var(--color-dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─── TYPOGRAPHIE ───────────────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-hero {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.text-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-section-title);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.text-small-caps {
+  font-family: var(--font-display);
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+
+/* ─── COMPOSANTS UTILITAIRES ────────────────────────────────────────────── */
+.container-wedding {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-container);
+}
+
+.section-padding {
+  padding-top: var(--space-section-y);
+  padding-bottom: var(--space-section-y);
+}
+
+/* ─── ORNEMENTS DÉCORATIFS ──────────────────────────────────────────────── */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-gold);
+}
+
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* Motif Kente SVG en background */
+.kente-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A96E' fill-opacity='0.06'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─── ANIMATIONS CSS GLOBALES ───────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up var(--duration-slow) var(--ease-smooth) both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gold shimmer sur texte */
+.text-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-dark),
+    var(--color-gold-light),
+    var(--color-gold-dark)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── SCROLLBAR CUSTOM ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-ivory-warm); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold-dark); }
+
+/* ─── FOCUS ACCESSIBILITY ───────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── SÉLECTION TEXTE ───────────────────────────────────────────────────── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-dark);
+}

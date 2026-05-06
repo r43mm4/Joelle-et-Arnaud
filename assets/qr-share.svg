@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1b4a" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#c8a24a" stop-opacity="0.10"/>
+    </linearGradient>
+    <pattern id="d" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="2.2" fill="#c8a24a" opacity="0.14"/>
+      <circle cx="21" cy="21" r="2.2" fill="#0b1b4a" opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="640" rx="48" fill="#fbf8f2"/>
+  <rect x="26" y="26" width="588" height="588" rx="38" fill="url(#g)" stroke="#c8a24a" stroke-opacity="0.55" stroke-width="2"/>
+  <rect x="52" y="52" width="536" height="536" rx="30" fill="url(#d)" opacity="0.9"/>
+
+  <!-- faux QR (placeholder esthétique) -->
+  <g fill="#101114" opacity="0.82">
+    <rect x="92" y="92" width="140" height="140" rx="18"/>
+    <rect x="408" y="92" width="140" height="140" rx="18"/>
+    <rect x="92" y="408" width="140" height="140" rx="18"/>
+  </g>
+  <g fill="#fbf8f2">
+    <rect x="118" y="118" width="88" height="88" rx="12"/>
+    <rect x="434" y="118" width="88" height="88" rx="12"/>
+    <rect x="118" y="434" width="88" height="88" rx="12"/>
+  </g>
+  <g fill="#101114" opacity="0.88">
+    <rect x="142" y="142" width="40" height="40" rx="10"/>
+    <rect x="458" y="142" width="40" height="40" rx="10"/>
+    <rect x="142" y="458" width="40" height="40" rx="10"/>
+
+    <rect x="280" y="280" width="22" height="22" rx="6"/>
+    <rect x="312" y="280" width="22" height="22" rx="6"/>
+    <rect x="344" y="280" width="22" height="22" rx="6"/>
+    <rect x="280" y="312" width="22" height="22" rx="6"/>
+    <rect x="332" y="312" width="22" height="22" rx="6"/>
+    <rect x="364" y="312" width="22" height="22" rx="6"/>
+    <rect x="280" y="344" width="22" height="22" rx="6"/>
+    <rect x="312" y="344" width="22" height="22" rx="6"/>
+    <rect x="364" y="344" width="22" height="22" rx="6"/>
+  </g>
+
+  <g font-family="Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial" text-anchor="middle">
+    <text x="320" y="598" font-size="18" fill="#0b1b4a" opacity="0.72">QR placeholder</text>
+  </g>
+</svg>
+

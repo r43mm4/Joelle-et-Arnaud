@@ -1,0 +1,218 @@
+# 🎋 Wedding Faire-Part — Cursor Rules
+# Joelle & Arnaud · 20 Juin 2026 · Houa, Bandjoun
+
+## RÔLE
+Tu es lead frontend spécialisé en sites de mariage africains coutumiers premium.
+Chaque décision doit refléter : élégance africaine, tradition Bamiléké, émotion authentique.
+
+---
+
+## STACK TECHNIQUE
+- Framework : Next.js 14 (App Router)
+- Language : TypeScript strict
+- Styling : Tailwind CSS + CSS Variables custom
+- Animations : Framer Motion
+- Fonts : Google Fonts (Cormorant Garamond + Jost)
+- Icons : Lucide React
+- Linting : ESLint + Prettier
+- Package manager : pnpm
+
+---
+
+## ARCHITECTURE DES FICHIERS
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout avec metadata SEO
+│   ├── page.tsx            # One-page assembly
+│   └── globals.css         # Design tokens CSS vars
+├── components/
+│   ├── sections/           # Sections de la page (Hero, Story, etc.)
+│   ├── ui/                 # Composants atomiques réutilisables
+│   └── layout/             # Header, Footer, Nav flottante
+├── data/
+│   └── couple.ts           # ← SOURCE DE VÉRITÉ pour toutes les infos du couple
+├── hooks/
+│   ├── useScrollProgress.ts
+│   └── useCountdown.ts
+├── lib/
+│   └── utils.ts            # cn(), formatDate(), etc.
+└── types/
+    └── index.ts            # CoupleData, Guest, EventInfo
+```
+
+---
+
+## SOURCE DE VÉRITÉ — `src/data/couple.ts`
+TOUJOURS lire ce fichier avant de coder une section.
+NE JAMAIS hardcoder les prénoms, dates ou lieux dans les composants.
+Utiliser UNIQUEMENT les exports de `couple.ts`.
+
+---
+
+## CONVENTIONS DE NOMMAGE
+
+### Fichiers
+- Composants : `PascalCase.tsx` → `HeroSection.tsx`
+- Hooks : `camelCase.ts` → `useCountdown.ts`
+- Utilitaires : `camelCase.ts` → `utils.ts`
+- Styles : `kebab-case.css` → `animations.css`
+- Data : `camelCase.ts` → `couple.ts`
+
+### Variables CSS (dans globals.css)
+- Couleurs : `--color-[nom]` → `--color-gold`, `--color-ivory`
+- Spacing : `--space-[n]` → `--space-section`
+- Fonts : `--font-[rôle]` → `--font-display`, `--font-body`
+- Animations : `--duration-[vitesse]` → `--duration-slow`
+
+### Composants React
+- Props interface : `[Composant]Props` → `HeroSectionProps`
+- Event handlers : `handle[Action]` → `handleScrollNext`
+- Refs : `[element]Ref` → `sectionRef`
+
+### CSS Classes (Tailwind)
+- Préférer les classes utilitaires Tailwind
+- Classes custom uniquement si Tailwind insuffisant
+- Préfixe `.w-` pour les classes custom wedding
+
+---
+
+## RÈGLES DE CODE
+
+### TypeScript
+```typescript
+// ✅ Toujours typer explicitement les props
+interface SectionProps {
+  couple: CoupleData;
+  className?: string;
+}
+
+// ✅ Toujours utiliser l'import de données
+import { coupleData } from '@/data/couple';
+
+// ❌ Jamais hardcoder
+const name = "Joelle"; // INTERDIT
+```
+
+### Composants
+```tsx
+// ✅ Structure standard d'une section
+'use client'; // seulement si nécessaire
+
+import { motion } from 'framer-motion';
+import { coupleData } from '@/data/couple';
+import { fadeInUp } from '@/lib/animations';
+
+export function HeroSection() {
+  return (
+    <section
+      id="hero"
+      aria-label="Accueil"
+      className="relative min-h-screen flex items-center"
+    >
+      {/* contenu */}
+    </section>
+  );
+}
+```
+
+### Animations Framer Motion
+```typescript
+// Variants réutilisables dans lib/animations.ts
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+};
+
+export const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } }
+};
+```
+
+### Performance
+- Images : toujours `next/image` avec `width` et `height`
+- Fonts : `next/font/google` avec `display: 'swap'`
+- Lazy load les sections hors viewport avec `loading="lazy"`
+- `'use client'` uniquement quand état/événements nécessaires
+
+---
+
+## ORDRE DES SECTIONS (ne pas modifier)
+1. `HeroSection` — Annonce principale avec animation d'entrée
+2. `CountdownSection` — Compte à rebours dynamique
+3. `StorySection` — Histoire du couple (timeline)
+4. `CeremonySection` — Détails de la cérémonie coutumière
+5. `CelebrationSection` — Détails de la fête / réception
+6. `GallerySection` — Photos du couple (optionnel)
+7. `RsvpSection` — Formulaire de confirmation
+8. `ClosingSection` — Citation finale + remerciements
+
+---
+
+## DESIGN SYSTEM
+
+### Palette
+```css
+--color-gold: #C9A96E;
+--color-gold-light: #E8D5A3;
+--color-ivory: #FAF6F0;
+--color-dark: #1A1209;
+--color-earth: #5C3D1E;
+--color-kente-red: #8B1A1A;
+--color-kente-green: #1A4A2E;
+```
+
+### Typographie
+- Display (titres principaux) : Cormorant Garamond, weight 300-600, italic
+- Body (texte courant) : Jost, weight 300-400
+- Accent (dates, lieux) : Cormorant Garamond SC (small caps)
+
+### Espacement sections
+- Mobile : `py-20` (80px)
+- Desktop : `py-32` (128px)
+- Entre éléments majeurs : `gap-16` ou `space-y-16`
+
+---
+
+## SEO & ACCESSIBILITÉ
+
+### Metadata (layout.tsx)
+```typescript
+export const metadata: Metadata = {
+  title: 'Joelle & Arnaud — Mariage Coutumier · 20 Juin 2026',
+  description: 'Avec joie, nous vous convions à célébrer notre union coutumière à Houa, Bandjoun.',
+  openGraph: {
+    title: 'Joelle & Arnaud se marient !',
+    images: ['/og-image.jpg'],
+    locale: 'fr_FR',
+  }
+};
+```
+
+### Accessibilité obligatoire
+- Chaque `<section>` doit avoir `aria-label`
+- Images décoratives : `alt=""`
+- Images informatives : `alt` descriptif
+- Contraste minimum : 4.5:1 (WCAG AA)
+- Focus visible sur tous les éléments interactifs
+- `<h1>` unique par page, hiérarchie H1→H2→H3 respectée
+- `lang="fr"` sur `<html>`
+
+---
+
+## MODÈLE DE DONNÉES RÉUTILISABLE
+Voir `src/types/index.ts` + `src/data/couple.ts`
+Pour un nouveau client → modifier UNIQUEMENT `couple.ts`
+
+---
+
+## CE QU'ON NE FAIT PAS
+- ❌ Pas de `console.log` en production
+- ❌ Pas de `any` TypeScript
+- ❌ Pas d'inline styles sauf exceptions justifiées
+- ❌ Pas de dépendances inutiles (vérifier bundle size)
+- ❌ Pas d'images sans optimisation `next/image`
+- ❌ Pas de textes hardcodés hors de `couple.ts`
+- ❌ Pas de `'use client'` sans raison (favoriser Server Components)
