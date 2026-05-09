@@ -2,479 +2,352 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joëlle &amp; Arnaud — 20 Juin 2026</title>
-    <meta name="description" content="Faire-part numérique — Joëlle & Arnaud. Cérémonie coutumière bamiléké, 20 juin 2026, Houa, Bandjoun." />
+    <meta
+      name="description"
+      content="Joëlle & Arnaud se marient le 20 juin 2026 à Houa, Bandjoun."
+    />
+    <meta name="theme-color" content="#0b1b4a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="icon" href="./assets/favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-
-    <!-- ═══ CURSEUR CUSTOM ═══ -->
+    <!-- Curseur custom desktop uniquement -->
     <div class="cursor" id="cursor" aria-hidden="true"></div>
     <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
-    <!-- ═══ NAV FLOTTANTE ═══ -->
-    <nav class="nav" id="nav" aria-label="Navigation principale">
+    <!-- Nav flottante -->
+    <header class="nav" id="nav" role="banner">
       <a class="nav-brand" href="#hero">Joëlle &amp; Arnaud</a>
-      <ul class="nav-links" role="list">
-        <li><a href="#programme">Programme</a></li>
-        <li><a href="#histoire">Histoire</a></li>
-        <li><a href="#tenue">Tenue</a></li>
-        <li><a href="#infos">RSVP</a></li>
-      </ul>
-      <a class="btn-pill nav-rsvp" href="#infos">RSVP</a>
-    </nav>
-
-    <!-- ═══ STICKY DATE BANNER ═══ -->
-    <div class="sticky-date" id="stickyDate" aria-hidden="true">
-      <span class="sd-names">Joëlle &amp; Arnaud</span>
-      <span class="sd-sep" aria-hidden="true">·</span>
-      <span class="sd-date">20 Juin 2026 · Houa, Bandjoun</span>
-      <a class="sd-cta" href="#infos">RSVP →</a>
-    </div>
-
-    <!-- ═══════════ HERO ═══════════ -->
-    <header class="hero" id="hero" role="banner">
-      <div class="beads-top" aria-hidden="true"></div>
-
-      <!-- Motif ndop animé -->
-      <div class="hero-pattern" aria-hidden="true"></div>
-
-      <!-- Particules flottantes -->
-      <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-
-      <!-- Lueur -->
-      <div class="hero-glow" aria-hidden="true"></div>
-
-      <div class="hero-inner">
-        <p class="hero-kicker" id="heroKicker">Ils se disent oui</p>
-
-        <h1 class="hero-names">
-          <span class="hero-name" id="heroName1">Joëlle</span>
-          <span class="hero-amp" id="heroAmp">&amp;</span>
-          <span class="hero-name" id="heroName2">Arnaud</span>
-        </h1>
-
-        <div class="hero-line" aria-hidden="true"></div>
-
-        <div class="hero-meta">
-          <span>Samedi 20 Juin 2026</span>
-          <span class="dot" aria-hidden="true">•</span>
-          <span>Houa, Bandjoun</span>
-          <span class="dot" aria-hidden="true">•</span>
-          <span>09h00</span>
-        </div>
-
-        <p class="hero-sub">Une célébration élégante, inspirée de la tradition bamiléké.</p>
-
-        <div class="hero-actions">
-          <button class="btn-hero-primary" id="rsvpBtn" type="button">RSVP</button>
-          <button class="btn-hero-ghost" id="calendarBtn" type="button">
-            <span class="btn-icon" aria-hidden="true">⊕</span> Ajouter au calendrier
-          </button>
-        </div>
-
-        <!-- Carte récap -->
-        <div class="hero-card" id="heroCard">
-          <div class="hero-card-grid">
-            <div class="hci">
-              <div class="lbl">Cérémonie</div>
-              <div class="val">Coutumière</div>
-              <div class="sub">20 juin · 09h00</div>
-              <a class="lnk" id="civilCalendarLink" href="#">+ Calendrier</a>
-            </div>
-            <div class="hci">
-              <div class="lbl">Réception</div>
-              <div class="val">Soirée</div>
-              <div class="sub">20 juin · 19h00</div>
-              <a class="lnk" id="partyCalendarLink" href="#">+ Calendrier</a>
-            </div>
-            <div class="hci">
-              <div class="lbl">Lieu</div>
-              <div class="val">Houa, Bandjoun</div>
-              <div class="sub">Région de l'Ouest</div>
-              <a class="lnk" href="#infos">Voir les détails →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll hint animé -->
-      <div class="scroll-hint" aria-hidden="true">
-        <span>Découvrir</span>
-        <div class="scroll-line"></div>
-      </div>
-
-      <div class="beads-bot" aria-hidden="true"></div>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#programme">Journée</a>
+        <a href="#histoire">Histoire</a>
+        <a href="#rsvp">RSVP</a>
+      </nav>
     </header>
 
-    <!-- ═══════════ MAIN ═══════════ -->
-    <main class="main" role="main">
+    <main id="main">
+      <!-- ════════════════════════════════════
+           HERO — Photo plein écran + overlay
+      ════════════════════════════════════ -->
+      <section class="hero" id="hero" aria-label="Invitation">
+        <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
 
-      <!-- COUNTDOWN -->
-      <section class="countdown-section" aria-label="Compte à rebours">
-        <div class="container" style="text-align:center; position:relative; z-index:1;">
-          <div class="reveal">
-            <span class="overline" style="color:rgba(232,213,163,.65);">Le grand jour dans</span>
-            <h2 class="cd-title">Notre union approche</h2>
+        <!-- Photo du couple — fond plein écran -->
+        <div class="hero-photo-bg" aria-hidden="true">
+          <img
+            src="assets/photos/Joelle-Arnaud.jpg"
+            alt=""
+            class="hero-bg-img"
+            loading="eager"
+          />
+          <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Perles haut -->
+        <div class="beads beads-top" aria-hidden="true"></div>
+
+        <!-- Corps du hero -->
+        <div class="hero-body">
+          <!-- Kicker -->
+          <p class="hero-kicker anim-1">Union coutumière · Bamiléké</p>
+
+          <!-- Noms -->
+          <h1 class="hero-names">
+            <span class="hero-name anim-2">Joëlle</span>
+            <span class="hero-amp anim-3">&amp;</span>
+            <span class="hero-name anim-4">Arnaud</span>
+          </h1>
+
+          <!-- Ligne décorative -->
+          <div class="hero-rule anim-5" aria-hidden="true"></div>
+
+          <!-- Date + lieu -->
+          <p class="hero-date anim-6">
+            <span>Samedi 20 Juin 2026</span>
+            <span class="hero-sep" aria-hidden="true">·</span>
+            <span>Houa, Bandjoun</span>
+          </p>
+
+          <!-- Countdown intégré -->
+          <div
+            class="hero-cd anim-7"
+            role="timer"
+            aria-label="Compte à rebours avant le mariage"
+          >
+            <div class="cd-cell">
+              <span class="cd-num" id="cdDays">00</span>
+              <span class="cd-lbl">Jours</span>
+            </div>
+            <span class="cd-colon" aria-hidden="true">:</span>
+            <div class="cd-cell">
+              <span class="cd-num" id="cdHours">00</span>
+              <span class="cd-lbl">Heures</span>
+            </div>
+            <span class="cd-colon" aria-hidden="true">:</span>
+            <div class="cd-cell">
+              <span class="cd-num" id="cdMins">00</span>
+              <span class="cd-lbl">Min</span>
+            </div>
+            <span class="cd-colon" aria-hidden="true">:</span>
+            <div class="cd-cell">
+              <span class="cd-num" id="cdSecs">00</span>
+              <span class="cd-lbl">Sec</span>
+            </div>
           </div>
-          <div class="cd-grid reveal delay-1" role="timer" aria-live="off">
-            <div class="cd-unit">
-              <div class="cd-num" id="cdDays">00</div>
-              <div class="cd-lbl">Jours</div>
-            </div>
-            <div class="cd-sep" aria-hidden="true">·</div>
-            <div class="cd-unit">
-              <div class="cd-num" id="cdHours">00</div>
-              <div class="cd-lbl">Heures</div>
-            </div>
-            <div class="cd-sep" aria-hidden="true">·</div>
-            <div class="cd-unit">
-              <div class="cd-num" id="cdMins">00</div>
-              <div class="cd-lbl">Minutes</div>
-            </div>
-            <div class="cd-sep" aria-hidden="true">·</div>
-            <div class="cd-unit">
-              <div class="cd-num" id="cdSecs">00</div>
-              <div class="cd-lbl">Secondes</div>
-            </div>
+
+          <!-- CTA -->
+          <div class="hero-actions anim-8">
+            <button class="btn btn-glass" id="calendarBtn" type="button">
+              + Calendrier
+            </button>
           </div>
         </div>
+
+        <!-- Perles bas -->
+        <div class="beads beads-bottom" aria-hidden="true"></div>
       </section>
 
-      <!-- COUPLE -->
-      <section class="couple-section" id="couple" aria-label="Le couple">
-        <div class="container" style="text-align:center;">
-          <div class="orn reveal" aria-hidden="true"><span class="orn-sym">✦</span></div>
-          <div class="reveal delay-1">
-            <span class="overline">Force du couple</span>
-            <div class="couple-label">
-              Joëlle <span class="couple-amp">&amp;</span> Arnaud
-            </div>
-            <p class="couple-sub">Deux âmes, un destin.</p>
-          </div>
-
-          <!-- Portrait placeholders — remplacer src par vraies photos -->
-          <div class="couple-portraits reveal delay-2">
-            <figure class="portrait portrait-left">
-              <div class="portrait-img" role="img" aria-label="Portrait de Joëlle">
-                <div class="portrait-placeholder">
-                  <span class="portrait-initial">J</span>
-                </div>
-              </div>
-              <figcaption class="portrait-name">Joëlle</figcaption>
-            </figure>
-
-            <div class="portrait-divider" aria-hidden="true">
-              <div class="pd-line"></div>
-              <span class="pd-sym">✦</span>
-              <div class="pd-line"></div>
-            </div>
-
-            <figure class="portrait portrait-right">
-              <div class="portrait-img" role="img" aria-label="Portrait d'Arnaud">
-                <div class="portrait-placeholder">
-                  <span class="portrait-initial">A</span>
-                </div>
-              </div>
-              <figcaption class="portrait-name">Arnaud</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROGRAMME -->
-      <section class="section section-pad" id="programme" aria-label="Programme de la journée">
+      <!-- ════════════════════════════════════
+           PROGRAMME — Sobre, aéré
+      ════════════════════════════════════ -->
+      <section
+        class="section prog-section"
+        id="programme"
+        aria-label="Programme de la journée"
+      >
         <div class="container">
-          <div class="s-head reveal">
-            <span class="overline">Programme</span>
-            <h2 class="s-title">Les moments clés</h2>
-            <p class="s-sub">Une journée rythmée, simple et élégante.</p>
+          <div class="section-head reveal">
+            <p class="kicker">La journée</p>
+            <h2 class="section-title">Le déroulé</h2>
           </div>
-          <div class="grid2">
-            <article class="card card-hover reveal">
-              <div class="card-accent" aria-hidden="true"></div>
-              <div class="card-inner">
-                <div class="card-tag">09h00</div>
-                <h3 class="card-title">Union coutumière</h3>
-                <p class="card-date">Samedi 20 juin 2026</p>
-                <p class="card-loc">Houa, Bandjoun</p>
-                <a class="lnk" id="civilCalendarLink2" href="#">+ Ajouter au calendrier</a>
-              </div>
+
+          <div class="prog-grid">
+            <article class="prog-card reveal" style="--d: 0.05s">
+              <time class="prog-time" datetime="2026-06-20T09:00">19 h 00</time>
+              <h3 class="prog-name">Cérémonie coutumière</h3>
+              <p class="prog-place">Houa, Bandjoun, Cameroun</p>
+              <a
+                class="prog-cal"
+                id="civilCal"
+                href="#"
+                aria-label="Ajouter la cérémonie au calendrier"
+              >
+                <span aria-hidden="true">+</span> Ajouter au calendrier
+              </a>
             </article>
-            <article class="card card-hover reveal delay-1">
-              <div class="card-accent" aria-hidden="true"></div>
-              <div class="card-inner">
-                <div class="card-tag">19h00</div>
-                <h3 class="card-title">Réception</h3>
-                <p class="card-date">Samedi 20 juin 2026</p>
-                <p class="card-loc">Houa, Bandjoun</p>
-                <a class="lnk" id="partyCalendarLink2" href="#">+ Ajouter au calendrier</a>
-              </div>
+
+            <div
+              class="prog-ornament reveal"
+              style="--d: 0.12s"
+              aria-hidden="true"
+            >
+              <div class="po-line"></div>
+              <span class="po-sym">✦</span>
+              <div class="po-line"></div>
+            </div>
+
+            <article class="prog-card prog-card-right reveal" style="--d: 0.2s">
+              <time class="prog-time" datetime="2026-06-20T19:00">22 h 00</time>
+              <h3 class="prog-name">Réception</h3>
+              <p class="prog-place">Houa, Bandjoun, Cameroun</p>
+              <a
+                class="prog-cal"
+                id="partyCal"
+                href="#"
+                aria-label="Ajouter la réception au calendrier"
+              >
+                <span aria-hidden="true">+</span> Ajouter au calendrier
+              </a>
             </article>
           </div>
+
+          <!-- Infos pratiques compactes -->
+          <div class="prog-infos reveal" style="--d: 0.28s">
+            <div class="pi-item">
+              <span class="pi-lbl">Lieu</span>
+              <strong class="pi-val" id="addrLine1">Houa, Bandjoun</strong>
+            </div>
+            <div class="pi-sep" aria-hidden="true"></div>
+            <div class="pi-item">
+              <span class="pi-lbl">Région</span>
+              <strong class="pi-val" id="addrLine2">Région de l'Ouest</strong>
+            </div>
+            <div class="pi-sep" aria-hidden="true"></div>
+            <div class="pi-item">
+              <span class="pi-lbl">Pays</span>
+              <strong class="pi-val" id="addrLine3">Cameroun</strong>
+            </div>
+            <div class="pi-actions">
+              <a
+                class="btn btn-sm btn-indigo"
+                id="mapsBtn"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Itinéraire</a
+              >
+              <button
+                class="btn btn-sm btn-outline-dark"
+                id="copyAddrBtn"
+                type="button"
+              >
+                Copier
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- TENUE -->
-      <section class="section alt section-pad" id="tenue" aria-label="Code vestimentaire">
+      <!-- ════════════════════════════════════
+           HISTOIRE
+      ════════════════════════════════════ -->
+      <section
+        class="section story-section"
+        id="histoire"
+        aria-label="Notre histoire"
+      >
         <div class="container">
-          <div class="grid2">
-            <div class="card card-hover reveal">
-              <div class="card-inner">
-                <span class="overline">Code vestimentaire</span>
-                <h2 class="s-title card-h2">Nos couleurs</h2>
-                <p class="s-sub" style="margin-top:.5rem;">Votre présence est le plus beau des cadeaux. Si vous le souhaitez, soutenez notre harmonie.</p>
-                <div class="swatches" aria-label="Couleurs du mariage">
-                  <div class="swatch">
-                    <span class="chip" style="--c:#0b1b4a;"></span>
-                    <span class="chip-lbl">Ndop Indigo</span>
-                  </div>
-                  <div class="swatch">
-                    <span class="chip" style="--c:#c8a24a;"></span>
-                    <span class="chip-lbl">Or chaud</span>
-                  </div>
-                  <div class="swatch">
-                    <span class="chip" style="--c:#f6f1e6; box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);"></span>
-                    <span class="chip-lbl">Ivoire</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card card-hover reveal delay-1">
-              <div class="card-inner">
-                <span class="overline">Signature</span>
-                <h2 class="s-title card-h2">Bamiléké Chic</h2>
-                <p class="s-sub" style="margin-top:.5rem;">Une esthétique inspirée du <strong>ndop</strong> (tissu royal) et des <strong>perles</strong>, réinterprétée en minimal premium.</p>
-                <div class="quote-block">
-                  "La tradition n'est pas le passé — c'est une élégance qui traverse le temps."
-                </div>
-              </div>
+          <div class="section-head reveal">
+            <p class="kicker">Notre histoire</p>
+            <h2 class="section-title">Une rencontre devenue évidence</h2>
+          </div>
+
+          <div class="story-body reveal" style="--d: 0.1s">
+            <p class="story-p">
+              Nous nous rencontrons en 2009, par l'entremise d'une amie commune.
+              Arnaud découvre ma photo chez elle et insiste pour obtenir mon
+              numéro; il me trouvait belle. Lorsqu'il m'appelle, je suis
+              immédiatement marquée par la douceur de sa voix.
+            </p>
+            <p class="story-p">
+              Le jour du rendez-vous, il m'attend près de trois heures. Quand
+              j'arrive enfin, il m'accueille avec un grand sourire. Je tombe
+              aussitôt sous le charme de ce sourire, de sa chaleur et de sa
+              prestance.
+            </p>
+            <p class="story-p">
+              Très vite, nous découvrons que nous partageons la même passion :
+              le mannequinat. Depuis ce jour, nous ne nous sommes plus quittés.
+            </p>
+            <p class="story-p story-p-final">
+              Aujourd'hui, avec nos enfants, nous formons cette belle famille
+              dont nous rêvions. Cette célébration vient consolider notre amour
+              et notre avenir.
+              <em>Que toute la gloire revienne au Christ.</em>
+            </p>
+          </div>
+
+          <!-- Photo portrait dans l'histoire -->
+          <div class="story-photo reveal" style="--d: 0.2s">
+            <img
+              src="assets/photos/Joelle-Arnaud.jpg"
+              alt="Joëlle et Arnaud"
+              loading="lazy"
+            />
+            <div class="story-photo-caption">
+              <span>Deux présences, une promesse.</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- HISTOIRE / TIMELINE -->
-      <section class="section section-pad" id="histoire" aria-label="Notre histoire">
-        <div class="container narrow">
-          <div class="s-head reveal">
-            <span class="overline">Notre histoire</span>
-            <h2 class="s-title">Une rencontre, une promesse</h2>
-            <p class="s-sub">Quelques instants qui ont tout changé.</p>
-          </div>
-
-          <!-- Timeline avec ligne SVG animée -->
-          <div class="timeline-wrap reveal">
-            <svg class="tl-svg" id="tlSvg" aria-hidden="true" preserveAspectRatio="none">
-              <line class="tl-track" id="tlTrack" x1="50%" y1="0" x2="50%" y2="100%"/>
-              <line class="tl-progress" id="tlProgress" x1="50%" y1="0" x2="50%" y2="0"/>
-            </svg>
-
-            <div class="tl-items">
-              <div class="tl-item">
-                <div class="tl-content tl-left">
-                  <div class="tl-year">2020</div>
-                  <div class="tl-title">La rencontre</div>
-                  <div class="tl-desc">Un regard, un sourire — quelque chose d'indéfinissable s'est mis en place.</div>
-                </div>
-                <div class="tl-dot" aria-hidden="true">✨</div>
-                <div class="tl-content tl-right" aria-hidden="true"></div>
-              </div>
-
-              <div class="tl-item">
-                <div class="tl-content tl-left" aria-hidden="true"></div>
-                <div class="tl-dot" aria-hidden="true">✈️</div>
-                <div class="tl-content tl-right">
-                  <div class="tl-year">2021</div>
-                  <div class="tl-title">Premier voyage</div>
-                  <div class="tl-desc">Ensemble pour la première fois loin de chez nous. Chaque instant a tout confirmé.</div>
-                </div>
-              </div>
-
-              <div class="tl-item">
-                <div class="tl-content tl-left">
-                  <div class="tl-year">2024</div>
-                  <div class="tl-title">La demande</div>
-                  <div class="tl-desc">Arnaud a posé la question que Joëlle attendait sans le savoir encore.</div>
-                </div>
-                <div class="tl-dot" aria-hidden="true">💍</div>
-                <div class="tl-content tl-right" aria-hidden="true"></div>
-              </div>
-
-              <div class="tl-item tl-last">
-                <div class="tl-content tl-left" aria-hidden="true"></div>
-                <div class="tl-dot tl-dot-final" aria-hidden="true">🎋</div>
-                <div class="tl-content tl-right">
-                  <div class="tl-year">2026</div>
-                  <div class="tl-title">Le grand jour</div>
-                  <div class="tl-desc">Entourés de vous, nous célébrons notre union selon la tradition bamiléké.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="orn reveal" style="margin-top:3rem;" aria-hidden="true">
-            <span class="orn-sym">✦</span>
-          </div>
-
-          <!-- Accordéon -->
-          <div class="accordion reveal" id="storyAccordion">
-            <button class="acc-btn" type="button" aria-expanded="false">
-              <span class="acc-q">Le début <span class="acc-ico" aria-hidden="true">+</span></span>
-              <span class="acc-a">Remplacez ce texte par votre histoire — comment vous vous êtes rencontrés, vos premières anecdotes, le "oui" qui a tout changé…</span>
-            </button>
-            <button class="acc-btn" type="button" aria-expanded="false">
-              <span class="acc-q">Le déclic <span class="acc-ico" aria-hidden="true">+</span></span>
-              <span class="acc-a">Un moment, une évidence, un choix partagé en silence. Ces instants qui n'ont pas besoin de mots pour prendre tout leur sens.</span>
-            </button>
-            <button class="acc-btn" type="button" aria-expanded="false">
-              <span class="acc-q">Aujourd'hui <span class="acc-ico" aria-hidden="true">+</span></span>
-              <span class="acc-a">Nous célébrons entourés de vous — merci d'être là pour partager ce jour unique avec nous.</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- INFOS & RSVP -->
-      <section class="section alt" id="infos" aria-label="Informations pratiques et RSVP">
+      <!-- ════════════════════════════════════
+           PHOTOS / QR
+      ════════════════════════════════════ -->
+      <section
+        class="section qr-section"
+        id="photos"
+        aria-label="Partage de photos"
+      >
         <div class="container">
-          <div class="s-head reveal">
-            <span class="overline">Informations pratiques</span>
-            <h2 class="s-title">Adresse &amp; RSVP</h2>
+          <div class="section-head reveal">
+            <p class="kicker">Souvenirs</p>
+            <h2 class="section-title">Partagez vos photos</h2>
+            <p class="qr-sub">
+              Scannez pour accéder à l'espace de partage du mariage.
+            </p>
           </div>
-          <div class="grid2">
-            <div class="card card-hover reveal">
-              <div class="card-inner">
-                <h2 class="card-h2-serif">Adresse</h2>
-                <p class="muted">Cérémonie coutumière et réception</p>
-                <div class="address-block">
-                  <div class="addr-line" id="addrLine1">Houa, Bandjoun</div>
-                  <div class="addr-line" id="addrLine2">Région de l'Ouest</div>
-                  <div class="addr-line" id="addrLine3">Cameroun</div>
-                </div>
-                <div class="row">
-                  <a class="btn-pill btn-pill-gold" id="mapsBtn" href="https://maps.google.com/?q=Bandjoun,Cameroon" target="_blank" rel="noreferrer">Ouvrir Maps</a>
-                  <button class="btn-pill btn-pill-outline" id="copyAddrBtn" type="button">Copier</button>
-                </div>
-              </div>
-            </div>
 
-            <div class="card card-hover reveal delay-1">
-              <div class="card-inner">
-                <h2 class="card-h2-serif">RSVP</h2>
-                <p class="muted">Merci de répondre avant le <strong id="rsvpDeadlineLabel">1er juin 2026</strong>.</p>
-                <form class="form" id="rsvpForm" novalidate>
-                  <label class="field">
-                    <span>Nom complet</span>
-                    <input name="name" type="text" autocomplete="name" required placeholder="Prénom Nom" />
-                  </label>
-                  <label class="field">
-                    <span>Présence</span>
-                    <select name="attendance" required>
-                      <option value="" disabled selected>Choisir…</option>
-                      <option value="Oui, avec plaisir">Oui, avec plaisir</option>
-                      <option value="Non, malheureusement">Non, malheureusement</option>
-                    </select>
-                  </label>
-                  <label class="field">
-                    <span>Message</span>
-                    <textarea name="message" rows="3" placeholder="Allergies, accompagnant, mot doux…"></textarea>
-                  </label>
-                  <div class="row">
-                    <button class="btn-pill btn-pill-gold" type="submit">Envoyer</button>
-                    <button class="btn-pill btn-pill-outline" id="resetBtn" type="reset">Effacer</button>
-                  </div>
-                  <p class="tiny">Envoi via votre client mail. Aucune donnée n'est stockée.</p>
-                </form>
+          <div class="qr-layout reveal" style="--d: 0.1s">
+            <div class="qr-card">
+              <div
+                class="qr-box"
+                aria-label="QR code de partage photo"
+                id="qrBox"
+              >
+                <!-- Remplacer par <img src="assets/qr-share.png" alt="QR code"> quand disponible -->
+                <div class="qr-grid" aria-hidden="true">
+                  <span></span><span class="f"></span><span></span><span></span
+                  ><span class="f"></span><span></span><span></span>
+                  <span></span><span></span><span class="f"></span><span></span
+                  ><span></span><span class="f"></span><span></span>
+                  <span class="f"></span><span></span><span></span
+                  ><span class="f"></span><span></span><span></span
+                  ><span class="f"></span> <span></span><span class="f"></span
+                  ><span></span><span></span><span class="f"></span><span></span
+                  ><span></span> <span></span><span></span
+                  ><span class="f"></span><span></span><span></span
+                  ><span class="f"></span><span></span> <span class="f"></span
+                  ><span></span><span></span><span class="f"></span><span></span
+                  ><span></span><span class="f"></span> <span></span
+                  ><span class="f"></span><span></span><span></span
+                  ><span class="f"></span><span></span><span></span>
+                </div>
               </div>
+              <div class="qr-actions">
+                <a
+                  class="btn btn-gold-solid btn-sm"
+                  id="photoShareBtn"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Ouvrir le lien</a
+                >
+                <button
+                  class="btn btn-sm btn-outline-dark"
+                  id="copyPhotoShareBtn"
+                  type="button"
+                >
+                  Copier
+                </button>
+              </div>
+              <p class="qr-hint" id="photoShareHint">
+                Le lien de partage sera ajouté prochainement.
+              </p>
             </div>
           </div>
         </div>
       </section>
-
-      <!-- PHOTOS -->
-      <section class="section section-pad" id="photos" aria-label="Partage de photos">
-        <div class="container">
-          <div class="s-head reveal">
-            <span class="overline">Souvenirs</span>
-            <h2 class="s-title">Partagez vos plus beaux moments</h2>
-            <p class="s-sub">Scannez le QR code pour accéder à l'espace de partage.</p>
-          </div>
-          <div class="grid2">
-            <div class="card card-hover reveal" style="text-align:center;">
-              <div class="card-inner">
-                <div class="qr-frame">
-                  <img class="qr-img" src="./assets/qr-share.svg" alt="QR code de partage des photos" id="qrImg" onerror="this.style.display='none';document.getElementById('qrPlaceholder').style.display='flex'" />
-                  <div class="qr-placeholder" id="qrPlaceholder" style="display:none;">QR code · à venir</div>
-                </div>
-                <div class="row" style="justify-content:center; margin-top:1rem;">
-                  <a class="btn-pill btn-pill-gold small" id="photoShareBtn" href="#" target="_blank" rel="noreferrer">Ouvrir le lien</a>
-                  <button class="btn-pill btn-pill-outline small" id="copyPhotoShareBtn" type="button">Copier</button>
-                </div>
-                <p class="tiny" id="photoShareHint" style="margin-top:.5rem;">Le lien définitif sera ajouté prochainement.</p>
-              </div>
-            </div>
-            <div class="card card-hover reveal delay-1">
-              <div class="card-inner">
-                <span class="overline">Astuce</span>
-                <h2 class="s-title card-h2" style="margin:.3rem 0 .75rem;">Simple &amp; instantané</h2>
-                <p class="s-sub">Imprimez ce QR sur un panneau ou des cartes de table. Les invités partagent en un seul scan, sans application.</p>
-                <div class="orn" style="margin:1.2rem 0;" aria-hidden="true"><span class="orn-sym">✦</span></div>
-                <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem; color:var(--indigo);">Chaque photo est un souvenir d'amour.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CADEAUX & CONTACT -->
-      <section class="section alt" id="cadeaux" aria-label="Cadeaux et contact">
-        <div class="container">
-          <div class="grid2">
-            <div class="card card-hover reveal">
-              <div class="card-inner">
-                <h2 class="card-h2-serif">Cadeaux</h2>
-                <p class="muted">Votre présence est le plus beau des cadeaux. Si vous le souhaitez, une urne sera disponible le jour J.</p>
-              </div>
-            </div>
-            <div class="card card-hover reveal delay-1">
-              <div class="card-inner">
-                <h2 class="card-h2-serif">Contact</h2>
-                <p class="muted" style="margin-bottom:.75rem;">Pour toute question, n'hésitez pas à nous écrire.</p>
-                <div class="row">
-                  <a class="btn-pill btn-pill-gold small" href="mailto:contact@example.com" id="contactEmailBtn">Email</a>
-                  <a class="btn-pill btn-pill-outline small" href="tel:+237000000000" id="contactPhoneBtn">Téléphone</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
 
-    <!-- ═══ FOOTER ═══ -->
+    <!-- ════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════ -->
     <footer class="footer" role="contentinfo">
-      <div class="beads-top" style="position:relative;" aria-hidden="true"></div>
-      <div class="container footer-inner">
-        <div class="f-names">Joëlle &amp; Arnaud</div>
-        <div class="orn" style="max-width:200px;" aria-hidden="true"><span class="orn-sym">✦</span></div>
-        <div class="f-meta">
-          <span id="footerYear"></span>
-          <span class="dot" aria-hidden="true">·</span>
-          <span>#JoelleEtArnaud2026</span>
-        </div>
+      <div class="beads beads-footer" aria-hidden="true"></div>
+      <div class="footer-inner">
+        <p class="footer-names">Joëlle &amp; Arnaud</p>
+        <p class="footer-date">20 · 06 · 2026 · Houa, Bandjoun</p>
+        <p class="footer-hash">#JoelleEtArnaud2026</p>
       </div>
     </footer>
 
-    <!-- Toast notification -->
-    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <!-- Toast -->
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

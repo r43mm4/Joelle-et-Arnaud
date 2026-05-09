@@ -1,604 +1,340 @@
-/* ═══════════════════════════════════════════════════════════
-   Joëlle & Arnaud — Script Premium v2
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   Joëlle & Arnaud — Script Final
+   ═══════════════════════════════════════════════════════ */
 
-/* ── CONFIGURATION ───────────────────────────────────────── */
 const CONFIG = {
-  eventTitle:       "Mariage — Joëlle & Arnaud",
-  eventDateISO:     "2026-06-20",
-  civilTime:        "09:00",
-  partyTime:        "19:00",
-  locationLabel:    "Houa, Bandjoun, Cameroun",
-  rsvpEmail:        "joelle.arnaud.2026@gmail.com",
-  rsvpDeadline:     "1er juin 2026",
-  photoShareUrl:    "",
-  contactEmail:     "contact@example.com",
-  contactPhone:     "+237 000 000 000",
-  hashtag:          "#JoelleEtArnaud2026",
+  eventTitle:    'Mariage — Joëlle & Arnaud',
+  eventDateISO:  '2026-06-20',
+  civilTime:     '09:00',
+  partyTime:     '19:00',
+  locationLabel: 'Houa, Bandjoun, Cameroun',
+  rsvpEmail:     'joelle.arnaud.2026@gmail.com',
+  photoShareUrl: '',
 };
 
-/* ── UTILS ───────────────────────────────────────────────── */
-function pad2(n) { return String(n).padStart(2, "0"); }
+/* ── UTILS ─────────────────────────────────────────────── */
+function pad2(n) { return String(n).padStart(2, '0'); }
 
 function toast(msg) {
-  const el = document.getElementById("toast");
+  const el = document.getElementById('toast');
   if (!el) return;
   el.textContent = msg;
-  el.classList.add("show");
+  el.classList.add('show');
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => el.classList.remove("show"), 2400);
+  toast._t = setTimeout(() => el.classList.remove('show'), 2400);
 }
 
-function getAddressString() {
-  const l1 = document.getElementById("addrLine1")?.textContent?.trim() || "Houa, Bandjoun";
-  const l2 = document.getElementById("addrLine2")?.textContent?.trim() || "Région de l'Ouest";
-  const l3 = document.getElementById("addrLine3")?.textContent?.trim() || "Cameroun";
-  return [l1, l2, l3].filter(Boolean).join(", ");
+function getAddr() {
+  const l1 = document.getElementById('addrLine1')?.textContent?.trim() || 'Houa, Bandjoun';
+  const l2 = document.getElementById('addrLine2')?.textContent?.trim() || 'Région de l\'Ouest';
+  const l3 = document.getElementById('addrLine3')?.textContent?.trim() || 'Cameroun';
+  return [l1, l2, l3].filter(Boolean).join(', ');
 }
 
-/* ── CURSEUR CUSTOM ──────────────────────────────────────── */
+/* ── CURSEUR CUSTOM ────────────────────────────────────── */
 function initCursor() {
-  const cursor    = document.getElementById("cursor");
-  const cursorDot = document.getElementById("cursorDot");
-  if (!cursor || !cursorDot) return;
+  const cur = document.getElementById('cursor');
+  const dot = document.getElementById('cursorDot');
+  if (!cur || !dot) return;
 
-  // Détection touch — désactiver le curseur custom
-  if (window.matchMedia("(pointer: coarse)").matches) {
-    cursor.style.display = "none";
-    cursorDot.style.display = "none";
-    document.documentElement.style.cursor = "auto";
-    document.querySelectorAll("a, button, select").forEach(el => el.style.cursor = "auto");
+  // Désactivé sur touch
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    cur.style.display = 'none';
+    dot.style.display = 'none';
     return;
   }
 
-  let mouseX = 0, mouseY = 0;
-  let curX = 0, curY = 0;
-  let dotX = 0, dotY = 0;
-  let rafId;
+  let mx = 0, my = 0, cx = 0, cy = 0, dx = 0, dy = 0;
+  const lerp = (a, b, t) => a + (b - a) * t;
 
-  document.addEventListener("mousemove", e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  }, { passive: true });
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
 
-  // Hover state sur éléments interactifs
-  const interactives = "a, button, [role=button], input, select, textarea, label";
-  document.addEventListener("mouseover", e => {
-    if (e.target.closest(interactives)) cursor.classList.add("hover");
-  });
-  document.addEventListener("mouseout", e => {
-    if (e.target.closest(interactives)) cursor.classList.remove("hover");
-  });
+  const IA = 'a, button, input, select, textarea, label, [role=button]';
+  document.addEventListener('mouseover', e => { if (e.target.closest(IA)) cur.classList.add('hover'); });
+  document.addEventListener('mouseout',  e => { if (e.target.closest(IA)) cur.classList.remove('hover'); });
+  document.addEventListener('mousedown', () => cur.classList.add('click'));
+  document.addEventListener('mouseup',   () => cur.classList.remove('click'));
+  document.addEventListener('mouseleave', () => { cur.style.opacity = '0'; dot.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { cur.style.opacity = '1'; dot.style.opacity = '1'; });
 
-  // Click state
-  document.addEventListener("mousedown", () => cursor.classList.add("click"));
-  document.addEventListener("mouseup",   () => cursor.classList.remove("click"));
-
-  // Smooth follow avec lerp
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function animateCursor() {
-    curX = lerp(curX, mouseX, 0.14);
-    curY = lerp(curY, mouseY, 0.14);
-    dotX = lerp(dotX, mouseX, 0.55);
-    dotY = lerp(dotY, mouseY, 0.55);
-
-    cursor.style.left    = curX + "px";
-    cursor.style.top     = curY + "px";
-    cursorDot.style.left = dotX + "px";
-    cursorDot.style.top  = dotY + "px";
-
-    rafId = requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  // Masquer quand souris quitte la fenêtre
-  document.addEventListener("mouseleave", () => {
-    cursor.style.opacity = "0";
-    cursorDot.style.opacity = "0";
-  });
-  document.addEventListener("mouseenter", () => {
-    cursor.style.opacity = "1";
-    cursorDot.style.opacity = "1";
-  });
+  (function loop() {
+    cx = lerp(cx, mx, 0.13); cy = lerp(cy, my, 0.13);
+    dx = lerp(dx, mx, 0.5);  dy = lerp(dy, my, 0.5);
+    cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+    dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
+    requestAnimationFrame(loop);
+  })();
 }
 
-/* ── CANVAS PARTICULES ───────────────────────────────────── */
+/* ── PARTICULES CANVAS ─────────────────────────────────── */
 function initParticles() {
-  const canvas = document.getElementById("heroCanvas");
-  if (!canvas) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const ctx = canvas.getContext("2d");
-  const PARTICLES = 38;
-  let particles = [];
-  let W, H;
+  const ctx = canvas.getContext('2d');
+  let w = 0, h = 0, pts = [];
+
+  const N = window.innerWidth < 500 ? 22 : 36;
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    w = canvas.width  = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
   }
 
-  function createParticle() {
+  function mkPt() {
     return {
-      x:    Math.random() * W,
-      y:    Math.random() * H,
-      size: Math.random() * 1.4 + 0.3,
-      speedX: (Math.random() - 0.5) * 0.3,
-      speedY: -(Math.random() * 0.4 + 0.1),
-      opacity: Math.random() * 0.5 + 0.1,
-      opacityDir: (Math.random() > 0.5 ? 1 : -1) * 0.003,
+      x:  Math.random() * w,
+      y:  Math.random() * h,
+      r:  Math.random() * 1.3 + 0.2,
+      sx: (Math.random() - 0.5) * 0.22,
+      sy: -(Math.random() * 0.32 + 0.07),
+      o:  Math.random() * 0.38 + 0.06,
+      od: (Math.random() > 0.5 ? 1 : -1) * 0.0022,
     };
   }
 
-  function initParticlesArr() {
-    particles = Array.from({ length: PARTICLES }, createParticle);
-  }
+  function init() { pts = Array.from({ length: N }, mkPt); }
 
   function draw() {
-    ctx.clearRect(0, 0, W, H);
-    for (const p of particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
-      p.opacity += p.opacityDir;
-
-      if (p.opacity <= 0.05 || p.opacity >= 0.6) p.opacityDir *= -1;
-      if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
-      if (p.x < -5 || p.x > W + 5) p.x = Math.random() * W;
-
+    ctx.clearRect(0, 0, w, h);
+    for (const p of pts) {
+      p.x += p.sx; p.y += p.sy; p.o += p.od;
+      if (p.o < 0.04 || p.o > 0.55) p.od *= -1;
+      if (p.y < -8)           { p.y = h + 8; p.x = Math.random() * w; }
+      if (p.x < -8 || p.x > w + 8) p.x = Math.random() * w;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201, 169, 110, ${p.opacity})`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,169,110,${p.o})`;
       ctx.fill();
     }
     requestAnimationFrame(draw);
   }
 
-  resize();
-  initParticlesArr();
-  draw();
-
-  const ro = new ResizeObserver(resize);
-  ro.observe(canvas);
+  resize(); init(); draw();
+  new ResizeObserver(() => { resize(); }).observe(canvas);
 }
 
-/* ── COUNTDOWN — calcul synchrone (zéro flash) ───────────── */
-function calcCountdown() {
-  const target = new Date("2026-06-20T09:00:00");
-  const diff   = target - new Date();
-  if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0, expired: true };
+/* ── COUNTDOWN — synchrone, zéro flash ─────────────────── */
+function calcCD() {
+  const diff = new Date('2026-06-20T09:00:00') - new Date();
+  if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0 };
   return {
-    d:       Math.floor(diff / 864e5),
-    h:       Math.floor((diff % 864e5) / 36e5),
-    m:       Math.floor((diff % 36e5) / 6e4),
-    s:       Math.floor((diff % 6e4) / 1e3),
-    expired: false,
+    d: Math.floor(diff / 864e5),
+    h: Math.floor((diff % 864e5) / 36e5),
+    m: Math.floor((diff % 36e5) / 6e4),
+    s: Math.floor((diff % 6e4) / 1e3),
   };
 }
 
-function renderCountdown(prev) {
-  const { d, h, m, s, expired } = calcCountdown();
-  const ids = { cdDays: d, cdHours: h, cdMins: m, cdSecs: s };
-
-  for (const [id, val] of Object.entries(ids)) {
+function renderCD() {
+  const { d, h, m, s } = calcCD();
+  const map = { cdDays: d, cdHours: h, cdMins: m, cdSecs: s };
+  for (const [id, val] of Object.entries(map)) {
     const el = document.getElementById(id);
     if (!el) continue;
     const str = pad2(val);
     if (el.textContent !== str) {
       el.textContent = str;
-      // Micro-animation tick sur les secondes uniquement
-      if (id === "cdSecs") {
-        el.classList.remove("tick");
-        void el.offsetWidth; // reflow pour reset
-        el.classList.add("tick");
-        setTimeout(() => el.classList.remove("tick"), 200);
+      if (id === 'cdSecs') {
+        el.classList.remove('tick');
+        void el.offsetWidth;
+        el.classList.add('tick');
+        setTimeout(() => el.classList.remove('tick'), 180);
       }
     }
-  }
-
-  if (expired) {
-    const title = document.querySelector(".cd-title");
-    if (title) title.textContent = "Joëlle & Arnaud sont mariés ! 🎉";
   }
 }
 
 function initCountdown() {
-  renderCountdown(null); // Premier render synchrone = zéro flash
-  setInterval(renderCountdown, 1000);
+  renderCD();                         // synchrone — premier rendu immédiat
+  setInterval(renderCD, 1000);
 }
 
-/* ── NAVIGATION FLOTTANTE ────────────────────────────────── */
+/* ── NAV FLOTTANTE ─────────────────────────────────────── */
 function initNav() {
-  const nav        = document.getElementById("nav");
-  const stickyDate = document.getElementById("stickyDate");
+  const nav = document.getElementById('nav');
   if (!nav) return;
-
-  const heroHeight = () => window.innerHeight * 0.65;
-
-  let lastScroll = 0;
   let ticking = false;
-
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const y = window.scrollY;
-
-      // Nav flottante
-      if (y > heroHeight()) nav.classList.add("visible");
-      else                   nav.classList.remove("visible");
-
-      // Sticky date banner (apparaît après le hero, disparaît quand la nav est là)
-      if (stickyDate) {
-        if (y > window.innerHeight * 0.3 && y <= heroHeight()) stickyDate.classList.add("show");
-        else stickyDate.classList.remove("show");
-      }
-
-      lastScroll = y;
-      ticking = false;
-    });
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll(); // check initial
+  const check = () => {
+    nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(check); ticking = true; }
+  }, { passive: true });
+  check();
 }
 
-/* ── REVEAL AU SCROLL ────────────────────────────────────── */
+/* ── REVEAL AU SCROLL ──────────────────────────────────── */
 function initReveal() {
-  const els = Array.from(document.querySelectorAll(".reveal"));
+  const els = [...document.querySelectorAll('.reveal')];
   if (!els.length) return;
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    els.forEach(el => el.classList.add("in"));
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(el => el.classList.add('in'));
     return;
   }
 
-  const io = new IntersectionObserver(
-    entries => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      }
-    },
-    { root: null, threshold: 0.1, rootMargin: "-40px" }
-  );
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '-24px' });
 
   els.forEach(el => io.observe(el));
 }
 
-/* ── TIMELINE ANIMÉE (ligne SVG progress) ────────────────── */
-function initTimeline() {
-  const wrap     = document.querySelector(".timeline-wrap");
-  const progress = document.getElementById("tlProgress");
-  if (!wrap || !progress) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    progress.setAttribute("y2", "100%");
-    return;
-  }
-
-  const items = wrap.querySelectorAll(".tl-item");
-  const dots  = wrap.querySelectorAll(".tl-dot");
-  const TOTAL = items.length;
-
-  function updateProgress() {
-    const wrapRect = wrap.getBoundingClientRect();
-    const svgH     = wrapRect.height;
-    if (svgH <= 0) return;
-
-    // Calcule quelle fraction de la timeline est visible
-    const viewH    = window.innerHeight;
-    const entered  = Math.max(0, viewH * 0.7 - wrapRect.top);
-    const fraction = Math.min(1, Math.max(0, entered / svgH));
-    const pct      = Math.round(fraction * 100);
-
-    progress.setAttribute("y2", pct + "%");
-
-    // Allume les dots au passage
-    dots.forEach((dot, i) => {
-      const dotRect = dot.getBoundingClientRect();
-      const dotMid  = dotRect.top + dotRect.height / 2;
-      if (dotMid < viewH * 0.75) {
-        dot.style.boxShadow = "0 0 0 10px rgba(201,169,110,.18), 0 0 20px rgba(201,169,110,.2)";
-        dot.style.borderColor = "var(--gold)";
-      } else {
-        dot.style.boxShadow = "0 0 0 7px rgba(201,169,110,.09)";
-      }
-    });
-  }
-
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  updateProgress();
+/* ── ICS CALENDRIER ────────────────────────────────────── */
+function toICSDate(d) {
+  const u = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return u.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
 }
 
-/* ── ACCORDÉON ───────────────────────────────────────────── */
-function initAccordion() {
-  const root = document.getElementById("storyAccordion");
-  if (!root) return;
-
-  root.addEventListener("click", e => {
-    const btn = e.target.closest(".acc-btn");
-    if (!btn) return;
-
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-
-    // Ferme tous les autres
-    root.querySelectorAll(".acc-btn[aria-expanded='true']").forEach(b => {
-      if (b !== btn) b.setAttribute("aria-expanded", "false");
-    });
-
-    btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
-  });
-}
-
-/* ── ICS CALENDRIER ──────────────────────────────────────── */
-function toICSDate(date) {
-  const y  = date.getUTCFullYear();
-  const m  = pad2(date.getUTCMonth() + 1);
-  const d  = pad2(date.getUTCDate());
-  const hh = pad2(date.getUTCHours());
-  const mm = pad2(date.getUTCMinutes());
-  return `${y}${m}${d}T${hh}${mm}00Z`;
-}
-
-function escapeICS(s) {
-  return String(s)
-    .replace(/\\/g, "\\\\")
-    .replace(/\n/g, "\\n")
-    .replace(/,/g, "\\,")
-    .replace(/;/g, "\\;");
-}
-
-function buildICS({ title, dateISO, time, durationMinutes, location }) {
-  const start = new Date(`${dateISO}T${time}:00`);
-  const startUTC = new Date(start.getTime() - start.getTimezoneOffset() * 60_000);
-  const endUTC   = new Date(startUTC.getTime() + durationMinutes * 60_000);
-  const uid      = Math.random().toString(16).slice(2) + "@joelle-arnaud";
-  const now      = new Date();
-
+function buildICS({ title, dateISO, time, dur, loc }) {
+  const s = new Date(`${dateISO}T${time}:00`);
+  const e = new Date(s.getTime() + dur * 60000);
+  const esc = v => String(v).replace(/[\\,;]/g, c => '\\' + c).replace(/\n/g, '\\n');
   return [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Joelle-Arnaud-2026//FR",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VEVENT",
-    `UID:${uid}`,
-    `DTSTAMP:${toICSDate(now)}`,
-    `DTSTART:${toICSDate(startUTC)}`,
-    `DTEND:${toICSDate(endUTC)}`,
-    `SUMMARY:${escapeICS(title)}`,
-    `LOCATION:${escapeICS(location)}`,
-    `DESCRIPTION:${escapeICS("Faire-part numérique : " + window.location.href)}`,
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//JoelleArnaud2026//FR',
+    'BEGIN:VEVENT',
+    `UID:${Math.random().toString(36).slice(2)}@ja2026`,
+    `DTSTAMP:${toICSDate(new Date())}`,
+    `DTSTART:${toICSDate(s)}`,
+    `DTEND:${toICSDate(e)}`,
+    `SUMMARY:${esc(title)}`,
+    `LOCATION:${esc(loc)}`,
+    'END:VEVENT', 'END:VCALENDAR',
+  ].join('\r\n');
 }
 
-function downloadICS(filename, content) {
-  const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement("a");
-  a.href     = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+function dlICS(name, content) {
+  const url = URL.createObjectURL(new Blob([content], { type: 'text/calendar;charset=utf-8' }));
+  Object.assign(document.createElement('a'), { href: url, download: name })
+    .dispatchEvent(new MouseEvent('click'));
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function attachCalendar(el, opts) {
+function attachCal(id, opts) {
+  const el = document.getElementById(id);
   if (!el) return;
-  el.addEventListener("click", e => {
+  el.addEventListener('click', e => {
     e.preventDefault();
-    downloadICS("joelle-arnaud.ics", buildICS(opts));
-    toast("Événement téléchargé ✓");
+    dlICS('joelle-arnaud.ics', buildICS(opts));
+    toast('Événement téléchargé ✓');
   });
 }
 
 function initCalendar() {
-  const civil = {
-    title:           `${CONFIG.eventTitle} — Cérémonie coutumière`,
-    dateISO:         CONFIG.eventDateISO,
-    time:            CONFIG.civilTime,
-    durationMinutes: 600,
-    location:        CONFIG.locationLabel,
-  };
-  const party = {
-    title:           `${CONFIG.eventTitle} — Réception`,
-    dateISO:         CONFIG.eventDateISO,
-    time:            CONFIG.partyTime,
-    durationMinutes: 480,
-    location:        CONFIG.locationLabel,
-  };
-  const full = {
-    title:           CONFIG.eventTitle,
-    dateISO:         CONFIG.eventDateISO,
-    time:            CONFIG.civilTime,
-    durationMinutes: 900,
-    location:        CONFIG.locationLabel,
-  };
-
-  attachCalendar(document.getElementById("calendarBtn"),       full);
-  attachCalendar(document.getElementById("civilCalendarLink"), civil);
-  attachCalendar(document.getElementById("partyCalendarLink"), party);
-  attachCalendar(document.getElementById("civilCalendarLink2"),civil);
-  attachCalendar(document.getElementById("partyCalendarLink2"),party);
+  const base = { dateISO: CONFIG.eventDateISO, loc: CONFIG.locationLabel };
+  attachCal('calendarBtn', { ...base, title: CONFIG.eventTitle,                    time: CONFIG.civilTime, dur: 900 });
+  attachCal('civilCal',    { ...base, title: `${CONFIG.eventTitle} — Cérémonie`,   time: CONFIG.civilTime, dur: 540 });
+  attachCal('partyCal',    { ...base, title: `${CONFIG.eventTitle} — Réception`,   time: CONFIG.partyTime, dur: 480 });
 }
 
-/* ── MAPS ────────────────────────────────────────────────── */
+/* ── MAPS ──────────────────────────────────────────────── */
 function initMaps() {
-  const btn = document.getElementById("mapsBtn");
-  if (!btn) return;
-  btn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getAddressString())}`;
+  const btn = document.getElementById('mapsBtn');
+  if (btn) btn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getAddr())}`;
 }
 
-/* ── COPIE ADRESSE ───────────────────────────────────────── */
-function initCopyAddress() {
-  const btn = document.getElementById("copyAddrBtn");
+/* ── COPIE ADRESSE ─────────────────────────────────────── */
+function initCopyAddr() {
+  const btn = document.getElementById('copyAddrBtn');
   if (!btn) return;
-  btn.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(getAddressString());
-      toast("Adresse copiée ✓");
-    } catch {
-      toast("Copie impossible — vérifiez les permissions.");
-    }
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(getAddr()); toast('Adresse copiée ✓'); }
+    catch { toast('Copie impossible — vérifiez les permissions.'); }
   });
 }
 
-/* ── PARTAGE PHOTOS ──────────────────────────────────────── */
-function initPhotoShare() {
-  const openBtn  = document.getElementById("photoShareBtn");
-  const copyBtn  = document.getElementById("copyPhotoShareBtn");
-  const hint     = document.getElementById("photoShareHint");
-  const url      = String(CONFIG.photoShareUrl || "").trim();
+/* ── PARTAGE PHOTOS ────────────────────────────────────── */
+function initPhoto() {
+  const openBtn = document.getElementById('photoShareBtn');
+  const copyBtn = document.getElementById('copyPhotoShareBtn');
+  const hint    = document.getElementById('photoShareHint');
+  const url     = String(CONFIG.photoShareUrl || '').trim();
 
   if (openBtn) {
-    if (url) {
-      openBtn.href = url;
-    } else {
-      openBtn.addEventListener("click", e => {
-        e.preventDefault();
-        toast("Le lien de partage sera ajouté prochainement.");
-      });
-    }
+    if (url) { openBtn.href = url; }
+    else openBtn.addEventListener('click', e => { e.preventDefault(); toast('Lien bientôt disponible.'); });
   }
-
   if (copyBtn) {
-    copyBtn.addEventListener("click", async () => {
-      if (!url) { toast("Le lien de partage n'est pas encore disponible."); return; }
-      try {
-        await navigator.clipboard.writeText(url);
-        toast("Lien copié ✓");
-      } catch {
-        toast("Copie impossible — vérifiez les permissions.");
-      }
+    copyBtn.addEventListener('click', async () => {
+      if (!url) { toast('Lien pas encore configuré.'); return; }
+      try { await navigator.clipboard.writeText(url); toast('Lien copié ✓'); }
+      catch { toast('Copie impossible.'); }
     });
   }
-
-  if (hint) {
-    hint.textContent = url
-      ? "Scannez ou cliquez pour partager vos photos."
-      : "Le lien définitif sera ajouté prochainement.";
-  }
+  if (hint && url) hint.textContent = 'Scannez ou cliquez pour partager vos photos.';
 }
 
-/* ── RSVP ────────────────────────────────────────────────── */
+/* ── RSVP ──────────────────────────────────────────────── */
 function initRSVP() {
-  // Scroll vers le form depuis le bouton hero
-  const heroBtn = document.getElementById("rsvpBtn");
-  const infos   = document.getElementById("infos");
-  if (heroBtn && infos) {
-    heroBtn.addEventListener("click", () => {
-      infos.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => {
-        const first = document.querySelector("#rsvpForm input, #rsvpForm select");
-        if (first) first.focus();
-      }, 600);
-    });
-  }
-
-  // Soumission du formulaire
-  const form = document.getElementById("rsvpForm");
+  const form = document.getElementById('rsvpForm');
   if (!form) return;
 
-  form.addEventListener("submit", e => {
+  // Validation visuelle champs requis
+  form.querySelectorAll('[required]').forEach(el => {
+    el.addEventListener('blur', () => {
+      const empty = !el.value.trim();
+      el.style.borderColor = empty ? 'rgba(180,60,60,.45)' : '';
+      el.style.boxShadow   = empty ? '0 0 0 3px rgba(180,60,60,.1)' : '';
+    });
+    el.addEventListener('input', () => {
+      el.style.borderColor = '';
+      el.style.boxShadow   = '';
+    });
+  });
+
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    const data       = new FormData(form);
-    const name       = String(data.get("name")       || "").trim();
-    const attendance = String(data.get("attendance") || "").trim();
-    const message    = String(data.get("message")    || "").trim();
+    const fd   = new FormData(form);
+    const name = String(fd.get('name') || '').trim();
+    const att  = String(fd.get('attendance') || '').trim();
+    const msg  = String(fd.get('message') || '').trim();
 
-    if (!name || !attendance) {
-      toast("Merci de remplir les champs obligatoires.");
-      return;
-    }
+    if (!name || !att) { toast('Merci de remplir les champs obligatoires.'); return; }
 
-    const subject = encodeURIComponent(`RSVP — ${name || "Invité(e)"}`);
-    const body    = encodeURIComponent(
-      [
-        `Nom : ${name || "—"}`,
-        `Présence : ${attendance || "—"}`,
-        message ? `\nMessage :\n${message}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n")
+    const sub  = encodeURIComponent(`RSVP — ${name}`);
+    const body = encodeURIComponent(
+      [`Nom : ${name}`, `Présence : ${att}`, msg ? `\nMessage :\n${msg}` : '']
+        .filter(Boolean).join('\n')
     );
-
-    window.location.href = `mailto:${encodeURIComponent(CONFIG.rsvpEmail)}?subject=${subject}&body=${body}`;
-  });
-
-  // Validation visuelle en temps réel
-  form.querySelectorAll("input[required], select[required]").forEach(el => {
-    el.addEventListener("blur", () => {
-      if (!el.value.trim()) {
-        el.style.borderColor = "rgba(200, 80, 80, 0.5)";
-        el.style.boxShadow   = "0 0 0 3px rgba(200, 80, 80, 0.1)";
-      } else {
-        el.style.borderColor = "";
-        el.style.boxShadow   = "";
-      }
-    });
-    el.addEventListener("input", () => {
-      el.style.borderColor = "";
-      el.style.boxShadow   = "";
-    });
+    window.location.href = `mailto:${encodeURIComponent(CONFIG.rsvpEmail)}?subject=${sub}&body=${body}`;
   });
 }
 
-/* ── SMOOTH SCROLL NAV LINKS ─────────────────────────────── */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", e => {
-      const id     = link.getAttribute("href").slice(1);
-      const target = document.getElementById(id);
-      if (!target) return;
+/* ── SMOOTH SCROLL interne ─────────────────────────────── */
+function initScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id  = a.getAttribute('href').slice(1);
+      const el  = document.getElementById(id);
+      if (!el) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
 
-/* ── FOOTER ANNÉE ────────────────────────────────────────── */
-function initFooter() {
-  const el = document.getElementById("footerYear");
-  if (el) el.textContent = new Date().getFullYear();
-
-  const deadline = document.getElementById("rsvpDeadlineLabel");
-  if (deadline) deadline.textContent = CONFIG.rsvpDeadline;
-
-  const emailBtn = document.getElementById("contactEmailBtn");
-  if (emailBtn) emailBtn.href = `mailto:${CONFIG.contactEmail}`;
-
-  const phoneBtn = document.getElementById("contactPhoneBtn");
-  if (phoneBtn) phoneBtn.href = `tel:${CONFIG.contactPhone.replace(/\s/g, "")}`;
-}
-
-/* ── INIT GLOBAL ─────────────────────────────────────────── */
+/* ── INIT ──────────────────────────────────────────────── */
 function init() {
-  // Synchrone en premier (évite tout flash)
+  // Synchrone en premier (évite flash)
   initCountdown();
-  initFooter();
   initMaps();
 
-  // DOM-dépendant
+  // Interactivité
   initCursor();
   initParticles();
   initNav();
   initReveal();
-  initTimeline();
-  initAccordion();
   initCalendar();
-  initCopyAddress();
-  initPhotoShare();
+  initCopyAddr();
+  initPhoto();
   initRSVP();
-  initSmoothScroll();
+  initScroll();
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
-}
+document.readyState === 'loading'
+  ? document.addEventListener('DOMContentLoaded', init)
+  : init();
