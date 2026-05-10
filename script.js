@@ -5,7 +5,7 @@
 const CONFIG = {
   eventTitle: "Mariage — Joëlle & Arnaud",
   eventDateISO: "2026-06-20",
-  civilTime: "19:00",
+  civilTime: "17:00",
   partyTime: "22:00",
   locationLabel: "Houa, Bandjoun, Cameroun",
   contactEmail: "thesoharnaud@gmail.com",
