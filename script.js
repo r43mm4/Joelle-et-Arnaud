@@ -9,6 +9,8 @@ const CONFIG = {
   partyTime:     '19:00',
   locationLabel: 'Houa, Bandjoun, Cameroun',
   rsvpEmail:     'joelle.arnaud.2026@gmail.com',
+  contactEmail:  'contact@example.com',
+  contactPhone:  '+237000000000',
   photoShareUrl: '',
 };
 
@@ -104,7 +106,7 @@ function initParticles() {
       if (p.x < -8 || p.x > w + 8) p.x = Math.random() * w;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,169,110,${p.o})`;
+      ctx.fillStyle = `rgba(180,106,85,${p.o})`;
       ctx.fill();
     }
     requestAnimationFrame(draw);
@@ -304,6 +306,14 @@ function initRSVP() {
   });
 }
 
+/* ── CONTACT ───────────────────────────────────────────── */
+function initContact() {
+  const emailBtn = document.getElementById('contactEmailBtn');
+  const phoneBtn = document.getElementById('contactPhoneBtn');
+  if (emailBtn && CONFIG.contactEmail) emailBtn.href = `mailto:${CONFIG.contactEmail}`;
+  if (phoneBtn && CONFIG.contactPhone) phoneBtn.href = `tel:${CONFIG.contactPhone.replace(/\s/g, '')}`;
+}
+
 /* ── SMOOTH SCROLL interne ─────────────────────────────── */
 function initScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -332,6 +342,7 @@ function init() {
   initCopyAddr();
   initPhoto();
   initRSVP();
+  initContact();
   initScroll();
 }
 

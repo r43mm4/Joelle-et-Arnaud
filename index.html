@@ -28,7 +28,7 @@
       <nav class="nav-links" aria-label="Sections">
         <a href="#programme">Journée</a>
         <a href="#histoire">Histoire</a>
-        <a href="#rsvp">RSVP</a>
+        <a href="#photos">Infos</a>
       </nav>
     </header>
 
@@ -125,12 +125,12 @@
         <div class="container">
           <div class="section-head reveal">
             <p class="kicker">La journée</p>
-            <h2 class="section-title">Le déroulé</h2>
+            <h2 class="section-title">Un déroulé élégant</h2>
           </div>
 
           <div class="prog-grid">
             <article class="prog-card reveal" style="--d: 0.05s">
-              <time class="prog-time" datetime="2026-06-20T09:00">19 h 00</time>
+              <time class="prog-time" datetime="2026-06-20T19:00">19 h 00</time>
               <h3 class="prog-name">Cérémonie coutumière</h3>
               <p class="prog-place">Houa, Bandjoun, Cameroun</p>
               <a
@@ -154,7 +154,7 @@
             </div>
 
             <article class="prog-card prog-card-right reveal" style="--d: 0.2s">
-              <time class="prog-time" datetime="2026-06-20T19:00">22 h 00</time>
+              <time class="prog-time" datetime="2026-06-20T22:00">22 h 00</time>
               <h3 class="prog-name">Réception</h3>
               <p class="prog-place">Houa, Bandjoun, Cameroun</p>
               <a
@@ -221,27 +221,25 @@
 
           <div class="story-body reveal" style="--d: 0.1s">
             <p class="story-p">
-              En 2009, le destin a croisé nos chemins grâce à une amie commune.
-              Sans le savoir, ce jour-là marquait le début d’une belle histoire.
-              J’ai découvert un homme attentionné, responsable et rassurant,
-              dont la présence m’a tout de suite inspiré confiance.
+              Nous nous rencontrons en 2009, par l'entremise d'une amie commune.
+              Arnaud découvre ma photo chez elle et insiste pour obtenir mon
+              numéro — il me trouvait belle. Lorsqu'il m'appelle, je suis
+              immédiatement marquée par la douceur de sa voix.
             </p>
             <p class="story-p">
-              De son côté, il aime dire qu’il m’a remarquée dès le premier
-              regard. Très jeunes, nous partagions déjà une passion commune pour
-              le mannequinat. Cet univers a renforcé notre complicité et nourri
-              nos rêves.
+              Le jour du rendez-vous, il m'attend près de trois heures. Quand
+              j'arrive enfin, il m'accueille avec un grand sourire. Je tombe
+              aussitôt sous le charme de ce sourire, de sa chaleur et de sa
+              prestance.
             </p>
             <p class="story-p">
-              Avec le temps, notre amour s’est construit avec patience,
-              tendresse et sincérité. Nous avons grandi ensemble, appris à nous
-              soutenir et avons eu le bonheur d’accueillir nos enfants, les plus
-              beaux fruits de notre amour.
+              Très vite, nous découvrons que nous partageons la même passion :
+              le mannequinat. Depuis ce jour, nous ne nous sommes plus quittés.
             </p>
             <p class="story-p story-p-final">
-              Aujourd’hui, notre mariage traditionnel célèbre notre histoire,
-              notre famille et l’avenir que nous continuons de bâtir ensemble
-              avec foi, complicité et bonheur.
+              Aujourd'hui, avec nos enfants, nous formons cette belle famille
+              dont nous rêvions. Cette célébration vient consolider notre amour
+              et notre avenir.
               <em>Que toute la gloire revienne au Christ.</em>
             </p>
           </div>
@@ -261,30 +259,37 @@
       </section>
 
       <!-- ════════════════════════════════════
-           PHOTOS / QR
+           SOUVENIRS · CADEAUX · CONTACT
+           3 colonnes — mobile-first
       ════════════════════════════════════ -->
       <section
-        class="section qr-section"
+        class="section tri-section"
         id="photos"
-        aria-label="Partage de photos"
+        aria-label="Souvenirs, cadeaux et contact"
       >
         <div class="container">
           <div class="section-head reveal">
-            <p class="kicker">Souvenirs</p>
-            <h2 class="section-title">Partagez vos photos</h2>
-            <p class="qr-sub">
-              Scannez pour accéder à l'espace de partage du mariage.
-            </p>
+            <p class="kicker">Pour finir</p>
+            <h2 class="section-title">Tout ce qu'il faut savoir</h2>
           </div>
 
-          <div class="qr-layout reveal" style="--d: 0.1s">
-            <div class="qr-card">
+          <div class="tri-grid">
+            <!-- COL 1 — QR Souvenirs -->
+            <div class="tri-card reveal" style="--d: 0s">
+              <div class="tri-card-head">
+                <p class="tri-kicker">Souvenirs</p>
+                <h3 class="tri-title">Partagez vos photos</h3>
+                <p class="tri-sub">
+                  Scannez le QR code pour accéder à l'espace de partage du
+                  mariage.
+                </p>
+              </div>
+
               <div
                 class="qr-box"
                 aria-label="QR code de partage photo"
                 id="qrBox"
               >
-                <!-- Remplacer par <img src="assets/qr-share.png" alt="QR code"> quand disponible -->
                 <div class="qr-grid" aria-hidden="true">
                   <span></span><span class="f"></span><span></span><span></span
                   ><span class="f"></span><span></span><span></span>
@@ -303,9 +308,10 @@
                   ><span class="f"></span><span></span><span></span>
                 </div>
               </div>
-              <div class="qr-actions">
+
+              <div class="tri-actions">
                 <a
-                  class="btn btn-gold-solid btn-sm"
+                  class="btn btn-terracotta btn-sm"
                   id="photoShareBtn"
                   href="#"
                   target="_blank"
@@ -320,9 +326,54 @@
                   Copier
                 </button>
               </div>
-              <p class="qr-hint" id="photoShareHint">
-                Le lien de partage sera ajouté prochainement.
+              <p class="tri-hint" id="photoShareHint">
+                Le lien sera ajouté prochainement.
               </p>
+            </div>
+
+            <!-- COL 2 — Cadeaux -->
+            <div class="tri-card tri-card-mid reveal" style="--d: 0.12s">
+              <div class="tri-card-head">
+                <p class="tri-kicker">Cadeaux</p>
+                <h3 class="tri-title">Votre présence suffit</h3>
+              </div>
+              <p class="tri-text" class="tri-text" style="margin-top: 0.75rem">
+                Votre présence est le plus beau des cadeaux mais si vous le
+                souhaitez, chaque geste sera reçu avec gratitude et amour.
+              </p>
+              <div class="tri-ornament" aria-hidden="true">
+                <div class="to-line"></div>
+                <span>✦</span>
+                <div class="to-line"></div>
+              </div>
+            </div>
+
+            <!-- COL 3 — Contact -->
+            <div class="tri-card reveal" style="--d: 0.24s">
+              <div class="tri-card-head">
+                <p class="tri-kicker">Contact</p>
+                <h3 class="tri-title">Une question<br />? Écrivez-nous</h3>
+              </div>
+              <p class="tri-text">
+                Pour toute question concernant la journée, n'hésitez pas à nous
+                contacter.
+              </p>
+              <div class="tri-actions tri-actions-col">
+                <a
+                  class="btn btn-terracotta btn-sm"
+                  href="mailto:thesoharnaud@gmail.com"
+                  id="contactEmailBtn"
+                >
+                  <span aria-hidden="true"></span> Email
+                </a>
+                <a
+                  class="btn btn-sm btn-outline-dark"
+                  href="tel:+237655730056"
+                  id="contactPhoneBtn"
+                >
+                  <span aria-hidden="true"></span> Téléphone
+                </a>
+              </div>
             </div>
           </div>
         </div>
