@@ -540,20 +540,38 @@ textarea { resize: vertical; min-height: 88px; }
 }
 .to-line { flex: 1; height: 1px; background: var(--line); }
 
-/* QR box dans la carte */
+/* QR box — contient le canvas généré par qrcode.js */
 .tri-card .qr-box {
-  width: min(180px, 60vw); aspect-ratio: 1;
-  padding: .85rem; border-radius: 16px;
+  width: min(200px, 72vw);
+  padding: .9rem; border-radius: 16px;
   background: #fff; border: 1px solid rgba(180,106,85,.25);
   box-shadow: 0 8px 28px rgba(180,106,85,.14);
   margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow .3s var(--ease), transform .3s var(--ease);
 }
-.qr-grid {
-  display: grid; grid-template-columns: repeat(7,1fr);
-  gap: .28rem; width: 100%; height: 100%;
+.tri-card .qr-box:hover {
+  box-shadow: 0 14px 40px rgba(180,106,85,.26);
+  transform: translateY(-2px);
 }
-.qr-grid span { display: block; border-radius: 3px; background: rgba(42,26,16,.08); }
-.qr-grid .f { background: var(--terra-deep); }
+
+/* Canvas QR injecté par JS */
+.qr-canvas-wrap {
+  width: 100%; display: flex; align-items: center; justify-content: center;
+}
+.qr-canvas {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Placeholder si lien non configuré */
+.qr-placeholder-text {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: .9rem; color: var(--muted); text-align: center;
+  padding: 2rem 1rem; line-height: 1.6;
+}
 
 /* Actions */
 .tri-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
