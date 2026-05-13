@@ -2,7 +2,10 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Joëlle &amp; Arnaud — 20 Juin 2026</title>
     <meta
       name="description"
@@ -56,7 +59,7 @@
         <!-- Corps du hero -->
         <div class="hero-body">
           <!-- Kicker -->
-          <p class="hero-kicker anim-1">Union coutumière · Bamiléké</p>
+          <p class="hero-kicker anim-1">Union coutumière</p>
 
           <!-- Noms -->
           <h1 class="hero-names">
@@ -104,8 +107,8 @@
 
           <!-- CTA -->
           <div class="hero-actions anim-8">
-            <button class="btn btn-glass" id="calendarBtn" type="button">
-              + Calendrier
+            <button class="btn btn-raphia" id="calendarBtn" type="button">
+              + SAVE THE DATE !
             </button>
           </div>
         </div>
@@ -185,14 +188,16 @@
               <strong class="pi-val" id="addrLine3">Cameroun</strong>
             </div>
             <div class="pi-actions">
-              <a
+              <button
                 class="btn btn-sm btn-indigo"
-                id="mapsBtn"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Itinéraire</a
+                id="mapsMenuBtn"
+                type="button"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                aria-controls="mapsSheet"
               >
+                Itinéraire
+              </button>
               <button
                 class="btn btn-sm btn-outline-dark"
                 id="copyAddrBtn"
@@ -221,27 +226,26 @@
 
           <div class="story-body reveal" style="--d: 0.1s">
             <p class="story-p">
-              En 2009, le destin a croisé nos chemins grâce à une amie commune.
-              Sans le savoir, ce jour-là, commençait une belle histoire. J’ai
-              découvert un homme attentionné, responsable et rassurant, dont la
-              présence a très vite trouvé une place dans mon cœur.
+              En 2009, le destin a délicatement croisé nos chemins grâce à une
+              amie commune. Sans le savoir, ce jour-là donnait naissance au
+              premier battement d’une belle histoire.
             </p>
             <p class="story-p">
-              De son côté, il dit m’avoir remarquée dès le premier regard. Très
-              jeunes, nous partagions la même passion pour le mannequinat. Cette
-              passion a nourri notre complicité et fait naître un amour sincère.
+              Moi, Joëlle, j’ai découvert un homme attentionné, responsable et
+              profondément rassurant, dont la présence a très vite trouvé une
+              place précieuse dans mon cœur.
             </p>
             <p class="story-p">
-              Au fil du temps, nous avons grandi ensemble, traversé les épreuves
-              et appris à avancer main dans la main. Puis nos enfants sont venus
-              illuminer notre vie et donner encore plus de sens à notre
-              histoire.
+              Moi, Arnaud, dès notre première rencontre, j'ai su que c'est avec
+              elle que je souhaitais avancer dans la vie. J'ai été marqué par sa
+              beauté, autant morale que physique, et encore davantage lorsque
+              j'ai découvert que nous partagions une passion commune pour le
+              mannequinat.
             </p>
             <p class="story-p story-p-final">
-              Aujourd'hui, avec nos enfants, nous formons cette belle famille
-              dont nous rêvions. Cette célébration vient consolider notre amour
-              et notre avenir <br />
-              <em><center>Que toute la gloire revienne au Christ.</center></em>
+              Aujourd’hui, cette célébration vient consacrer notre union,
+              consolider notre amour et affirmer l’avenir que nous avons choisi
+              de bâtir ensemble.
             </p>
           </div>
 
@@ -281,8 +285,8 @@
                 <p class="tri-kicker">Cadeaux</p>
                 <h3 class="tri-title">Votre présence suffit</h3>
               </div>
-              <p class="tri-text" class="tri-text" style="margin-top: 0.75rem">
-                Votre présence est le plus beau des cadeaux mais si vous le
+              <p class="tri-text" style="margin-top: 0.75rem">
+                Votre présence est le plus beau des cadeaux. Si vous le
                 souhaitez, chaque geste sera reçu avec gratitude et amour.
               </p>
               <div class="tri-ornament" aria-hidden="true">
@@ -308,7 +312,7 @@
               <div class="tri-actions tri-actions-col">
                 <a
                   class="btn btn-terracotta btn-sm"
-                  href="mailto:thesoharnaud@gmail.com"
+                  href="mailto:Joëllearnaud2009@gmail.com"
                   id="contactEmailBtn"
                 >
                   <span aria-hidden="true"></span> Email
@@ -337,13 +341,7 @@
                 aria-label="QR code de partage photo"
                 id="qrBox"
               >
-                <div
-                  class="qr-box"
-                  aria-label="QR code de partage photo"
-                  id="qrBox"
-                >
-                  <!-- généré automatiquement par script.js -->
-                </div>
+                <!-- généré automatiquement par script.js -->
               </div>
 
               <div class="tri-actions">
@@ -389,6 +387,50 @@ FOOTER
       aria-live="polite"
       aria-atomic="true"
     ></div>
+
+    <!-- Choix itinéraire (Google Maps / fiche téléchargeable) -->
+    <div
+      class="sheet-backdrop"
+      id="mapsBackdrop"
+      hidden
+      aria-hidden="true"
+    ></div>
+    <div
+      class="maps-sheet"
+      id="mapsSheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mapsSheetTitle"
+      hidden
+    >
+      <div class="maps-sheet-inner">
+        <div class="maps-sheet-handle" aria-hidden="true"></div>
+        <h3 id="mapsSheetTitle" class="maps-sheet-title">Rejoindre le lieu</h3>
+        <p class="maps-sheet-hint">
+          Ouvrez la carte en ligne ou gardez une fiche sur votre téléphone.
+        </p>
+        <div class="maps-sheet-actions">
+          <a
+            class="btn btn-full btn-indigo"
+            id="mapsOpenLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Consulter sur Google Maps</a
+          >
+          <button
+            class="btn btn-full btn-outline-dark"
+            id="mapsDownloadBtn"
+            type="button"
+          >
+            Télécharger la fiche lieu
+          </button>
+        </div>
+        <button type="button" class="maps-sheet-close" id="mapsSheetClose">
+          Fermer
+        </button>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

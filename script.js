@@ -8,7 +8,7 @@ const CONFIG = {
   civilTime: "17:00",
   partyTime: "22:00",
   locationLabel: "Houa, Bandjoun, Cameroun",
-  contactEmail: "thesoharnaud@gmail.com",
+  contactEmail: "Joëllearnaud2009@gmail.com",
   contactPhone: "+237655730056",
   photoShareUrl: "",
 };
@@ -37,6 +37,14 @@ function getAddr() {
   const l3 =
     document.getElementById("addrLine3")?.textContent?.trim() || "Cameroun";
   return [l1, l2, l3].filter(Boolean).join(", ");
+}
+
+function getMapsSearchUrl() {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getAddr())}`;
+}
+
+function getMapsDirectionsUrl() {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(getAddr())}`;
 }
 
 /* ── CURSEUR CUSTOM ────────────────────────────────────── */
@@ -148,7 +156,7 @@ function initParticles() {
       if (p.x < -8 || p.x > w + 8) p.x = Math.random() * w;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(180,106,85,${p.o})`;
+      ctx.fillStyle = `rgba(200,162,74,${p.o})`;
       ctx.fill();
     }
     requestAnimationFrame(draw);
@@ -317,11 +325,66 @@ function initCalendar() {
   });
 }
 
-/* ── MAPS ──────────────────────────────────────────────── */
-function initMaps() {
-  const btn = document.getElementById("mapsBtn");
-  if (btn)
-    btn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(getAddr())}`;
+/* ── ITINÉRAIRE : Maps ou fiche téléchargeable ─────────── */
+function initMapsSheet() {
+  const menuBtn = document.getElementById("mapsMenuBtn");
+  const sheet = document.getElementById("mapsSheet");
+  const backdrop = document.getElementById("mapsBackdrop");
+  const closeBtn = document.getElementById("mapsSheetClose");
+  const openLink = document.getElementById("mapsOpenLink");
+  const dlBtn = document.getElementById("mapsDownloadBtn");
+  if (!menuBtn || !sheet || !backdrop) return;
+
+  const setOpen = (open) => {
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    sheet.hidden = !open;
+    backdrop.hidden = !open;
+    document.body.classList.toggle("sheet-open", open);
+    if (open) {
+      if (openLink) openLink.href = getMapsSearchUrl();
+      (openLink || closeBtn)?.focus({ preventScroll: true });
+    } else {
+      menuBtn.focus({ preventScroll: true });
+    }
+  };
+
+  menuBtn.addEventListener("click", () => setOpen(true));
+  closeBtn?.addEventListener("click", () => setOpen(false));
+  backdrop.addEventListener("click", () => setOpen(false));
+
+  openLink?.addEventListener("click", () => {
+    setTimeout(() => setOpen(false), 400);
+  });
+
+  dlBtn?.addEventListener("click", () => {
+    const addr = getAddr();
+    const text = [
+      "Mariage — Joëlle & Arnaud",
+      "Date : samedi 20 juin 2026",
+      "",
+      "Adresse du lieu",
+      addr,
+      "",
+      "Carte Google Maps (lieu)",
+      getMapsSearchUrl(),
+      "",
+      "Itinéraire depuis votre position",
+      getMapsDirectionsUrl(),
+    ].join("\n");
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    Object.assign(document.createElement("a"), {
+      href: url,
+      download: "joelle-arnaud-lieu.txt",
+    }).dispatchEvent(new MouseEvent("click"));
+    setTimeout(() => URL.revokeObjectURL(url), 800);
+    toast("Fiche téléchargée ✓");
+    setOpen(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !sheet.hidden) setOpen(false);
+  });
 }
 
 /* ── COPIE ADRESSE ─────────────────────────────────────── */
@@ -372,7 +435,7 @@ function renderQR(url) {
         width: 200,
         margin: 1,
         color: {
-          dark: "#A45D44" /* terracotta-deep */,
+          dark: "#0B1B4A",
           light: "#ffffff",
         },
       },
@@ -453,8 +516,8 @@ function initRSVP() {
   form.querySelectorAll("[required]").forEach((el) => {
     el.addEventListener("blur", () => {
       const empty = !el.value.trim();
-      el.style.borderColor = empty ? "rgba(180,60,60,.45)" : "";
-      el.style.boxShadow = empty ? "0 0 0 3px rgba(180,60,60,.1)" : "";
+      el.style.borderColor = empty ? "rgba(200,162,74,.5)" : "";
+      el.style.boxShadow = empty ? "0 0 0 3px rgba(200,162,74,.12)" : "";
     });
     el.addEventListener("input", () => {
       el.style.borderColor = "";
@@ -511,7 +574,7 @@ function initScroll() {
 function init() {
   // Synchrone en premier (évite flash)
   initCountdown();
-  initMaps();
+  initMapsSheet();
 
   // Interactivité
   initCursor();
