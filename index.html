@@ -58,21 +58,42 @@
 
         <!-- Corps du hero -->
         <div class="hero-body">
-          <!-- Kicker -->
-          <p class="hero-kicker anim-1">Union coutumière</p>
+          <div class="hero-invitation">
+            <!--
+              HIÉRARCHIE TYPOGRAPHIQUE DU BLOC INVITATION
+              ─────────────────────────────────────────────
+              1. Familles    → Jost 300 · discret · contextualise
+              2. mariage coutumier → Cormorant Garamond italic grand · pièce d'or
+              3. de leurs enfants  → Jost 200 · souffle · transition vers les noms
+              4. Joëlle & Arnaud   → Cormorant géant · impact visuel maximal
+            -->
 
-          <!-- Noms -->
-          <h1 class="hero-names">
-            <span class="hero-name anim-2">Joëlle</span>
-            <span class="hero-amp anim-3">&amp;</span>
-            <span class="hero-name anim-4">Arnaud</span>
-          </h1>
+            <!-- 1. Familles — texte de contextualisation -->
+            <p class="hero-intro anim-1">
+              La famille <span class="hero-family">Bamukam</span><br />
+              et la famille <span class="hero-family">Numkam</span><br />
+              ont le privilège de vous convier au
+            </p>
+
+            <!-- 2. Titre central — pièce maîtresse -->
+            <p class="hero-event anim-2">mariage coutumier</p>
+
+            <!-- 3. Transition légère vers les noms -->
+            <p class="hero-children anim-3">de leurs enfants</p>
+
+            <!-- 4. Les noms — impact maximal -->
+            <h1 class="hero-names">
+              <span class="hero-name anim-4">Joëlle</span>
+              <span class="hero-amp anim-5">&amp;</span>
+              <span class="hero-name anim-6">Arnaud</span>
+            </h1>
+          </div>
 
           <!-- Ligne décorative -->
-          <div class="hero-rule anim-5" aria-hidden="true"></div>
+          <div class="hero-rule anim-7" aria-hidden="true"></div>
 
           <!-- Date + lieu -->
-          <p class="hero-date anim-6">
+          <p class="hero-date anim-8">
             <span>Samedi 20 Juin 2026</span>
             <span class="hero-sep" aria-hidden="true">·</span>
             <span>Houa, Bandjoun</span>
@@ -80,7 +101,7 @@
 
           <!-- Countdown intégré -->
           <div
-            class="hero-cd anim-7"
+            class="hero-cd anim-9"
             role="timer"
             aria-label="Compte à rebours avant le mariage"
           >
@@ -106,7 +127,7 @@
           </div>
 
           <!-- CTA -->
-          <div class="hero-actions anim-8">
+          <div class="hero-actions anim-10">
             <button class="btn btn-raphia" id="calendarBtn" type="button">
               + SAVE THE DATE !
             </button>
@@ -308,13 +329,13 @@
                 </h3>
               </div>
               <p class="tri-text">
-                Pour toute question concernant l'évènement, n'hésitez pas à nous
+                Pour toute question concernant la journée, n'hésitez pas à nous
                 contacter.
               </p>
               <div class="tri-actions tri-actions-col">
                 <a
                   class="btn btn-terracotta btn-sm"
-                  href="mailto:Joëllearnaud2009@gmail.com"
+                  href="mailto:thesoharnaud@gmail.com"
                   id="contactEmailBtn"
                 >
                   <span aria-hidden="true"></span> Email
@@ -425,7 +446,7 @@ FOOTER
             id="mapsDownloadBtn"
             type="button"
           >
-            Télécharger l'itinéraire
+            Télécharger la fiche lieu
           </button>
         </div>
         <button type="button" class="maps-sheet-close" id="mapsSheetClose">

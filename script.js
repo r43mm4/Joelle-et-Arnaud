@@ -411,7 +411,7 @@ function initQRBox() {
   if (!url) {
     /* Pas encore de lien : afficher un message sobre */
     box.innerHTML =
-      '<p class="qr-placeholder-text">Le QR code<br>sera disponible<br>le jour J</p>';
+      '<p class="qr-placeholder-text">Le QR code<br>sera disponible<br>prochainement</p>';
   }
   /* Si url présent, renderQR() remplacera le contenu */
 }
